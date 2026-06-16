@@ -620,6 +620,49 @@
       letter-spacing: 0.01em;
     }
 
+    /* ── COORDINATE MARK ── */
+    .coordinate-feature {
+      margin-bottom: 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .coordinate-string {
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(15px, 2vw, 21px);
+      letter-spacing: 0.1em;
+      color: var(--kraft);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .coordinate-caption {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.5);
+      max-width: 50ch;
+    }
+
+    .coord-inline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.92em;
+      letter-spacing: 0.03em;
+      color: rgba(245,240,232,0.85);
+      white-space: nowrap;
+    }
+
+    .drop-note {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(245,240,232,0.5);
+      margin-bottom: 36px;
+    }
+
+    .drop-note strong { color: rgba(245,240,232,0.8); font-weight: 600; }
+
     /* ── CONTACT ── */
     .contact-section {
       padding: 80px 0 100px;
@@ -685,7 +728,14 @@
     }
 
     /* ── FORMS ── */
-    .form-hidden { display: none; }
+    /* Honeypot: kept in the DOM for bots, removed from view + a11y tree for humans */
+    .form-hidden {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
 
     /* Newsletter signup (Current Drop) */
     .signup-form {
@@ -878,6 +928,14 @@
       letter-spacing: 0.1em;
     }
 
+    .footer-coordinate {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: rgba(26,20,16,0.42);
+      margin-top: 12px;
+    }
+
     /* ── COMPASS LOGO MARK ── */
     .compass-mark {
       display: inline-block;
@@ -1018,6 +1076,8 @@
         <span class="section-count">Select Santa Fe pop-ups &amp; coffee shops</span>
       </div>
 
+      <p class="drop-note">One garment, three views &mdash; the <strong>Sacred Heart Tee</strong>, shown full, in print detail, and at the hang tag.</p>
+
       <div class="products-grid">
 
         <!-- TSHIRT FULL -->
@@ -1071,7 +1131,7 @@
       <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form">
         <input type="hidden" name="form-name" value="newsletter" />
         <input type="hidden" name="subject" value="New newsletter signup — NEWS" />
-        <p class="form-hidden"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label></p>
+        <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
         <div class="form-body">
           <label class="signup-label" for="signup-email">Join the list for local drop announcements and future online availability.</label>
           <div class="signup-row">
@@ -1092,9 +1152,13 @@
           <img src="images/neck-label.jpg" alt="Inside neck label showing Made in Peru and GPS coordinates" />
         </div>
         <div class="about-text">
+          <div class="coordinate-feature">
+            <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
+            <p class="coordinate-caption">Point Conception, California. The Western Gate &mdash; where the coast turns and the cold sea meets the warm. A fixed point, repeated on every shirt.</p>
+          </div>
           <h2 class="stamp-title">About the Shirts</h2>
-          <p class="about-body">Each NEWS tee is cut and sewn in Peru from ring-spun cotton, then screenprinted by hand. Inside the neck, a set of GPS coordinates points to a remote stretch of the California coast, a major biogeographic boundary known for its stark landscape and natural boundaries. A fixed point. Repeated, quietly, on every shirt.</p>
-          <p class="about-body">Prints are produced in limited runs. Each image is chosen for what it says, not only how it looks. When a run is gone, it's gone. No restocks.</p>
+          <p class="about-body">Each NEWS tee is cut and sewn in Peru from ring-spun cotton, then screenprinted by hand in Santa Fe. Inside the neck, a single set of coordinates: <span class="coord-inline">34&deg; 26' 53.21" N, 120&deg; 28' 17.18" W</span> &mdash; the lighthouse at Point Conception, the elbow of the California coast and, to the Chumash, the Western Gate. One fixed point, quietly repeated.</p>
+          <p class="about-body">Prints are produced in limited runs. When a run is gone, it's gone. No restocks.</p>
           <div class="about-specs">
             <div class="spec-item">
               <span class="spec-label">Origin</span>
@@ -1127,7 +1191,7 @@
         </div>
         <div class="roots-right">
           <p>
-            NEWS was founded by artist and designer Sam Mott as a clothing project built around a clear point of view. Its name, drawn from North, East, West, and South, reflects a belief in direction, both visual and philosophical. From the beginning, the intention was to make clothing that felt considered, purposeful, and connected to something larger than trend. That foundation continues to guide the brand today.
+            NEWS was founded by artist and designer Sam Mott as a clothing project built around a clear point of view &mdash; clothing as a medium, direction as a philosophy. That orientation, fixed to a single point on the map, still guides the brand today.
           </p>
         </div>
       </div>
@@ -1147,7 +1211,7 @@
           <form name="wholesale-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
             <input type="hidden" name="form-name" value="wholesale-contact" />
             <input type="hidden" name="subject" value="New wholesale inquiry — NEWS" />
-            <p class="form-hidden"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label></p>
+            <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
             <div class="form-body">
               <div class="field">
                 <label for="cf-name">Name</label>
@@ -1171,7 +1235,7 @@
           </form>
 
           <p class="contact-note">For wholesale, consignment, or pop-up partnership inquiries.</p>
-          <a class="contact-email" href="/cdn-cgi/l/email-protection#0c64696060634c62697b7f7f787e6969787b696d7e226f6361"><span class="__cf_email__" data-cfemail="3b535e5757547b555e4c48484f495e5e4f4c5e5a4915585456">[email&#160;protected]</span></a>
+          <a class="contact-email" href="mailto:hello@newsstreetwear.com">hello@newsstreetwear.com</a>
         </div>
       </div>
     </div>
@@ -1187,6 +1251,7 @@
           <p class="footer-tagline">North · East · West · South</p>
           <a class="footer-top-link" href="#top"><span>&uarr;</span> Back to top</a>
           <p class="footer-copyright">&copy; 2026 NEWS&reg;. All rights reserved.</p>
+          <p class="footer-coordinate">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
         </div>
       </div>
     </div>
