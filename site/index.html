@@ -677,7 +677,7 @@
 
     .contact-note {
       font-family: 'Stint Ultra Condensed', serif;
-      font-size: 12px;
+      font-size: 24px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: rgba(245,240,232,0.28);
@@ -692,23 +692,27 @@
       overflow: hidden;
     }
 
-    .footer-band::before {
-      content: 'NEWS';
+    .footer-bg-word {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-weight: 900;
-      font-size: clamp(140px, 22vw, 280px);
-      color: rgba(26,20,16,0.08);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
+      width: clamp(440px, 70vw, 880px);
+      opacity: 0.08;
       pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .footer-bg-word img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .footer-inner {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -716,18 +720,35 @@
     }
 
     .footer-brand {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-weight: 700;
-      font-size: clamp(48px, 8vw, 112px);
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      line-height: 0.9;
+      line-height: 0;
+    }
+
+    .footer-brand img {
+      width: clamp(160px, 26vw, 360px);
+      height: auto;
+      display: block;
     }
 
     .footer-right {
       text-align: right;
     }
+
+    .footer-top-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(26,20,16,0.55);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-top-link:hover { color: var(--ink); }
+    .footer-top-link span { font-size: 15px; line-height: 1; }
 
     .footer-tagline {
       font-family: 'DM Mono', monospace;
@@ -931,8 +952,8 @@
 
       </div>
 
-      <p style="font-family:'Stint Ultra Condensed',serif;font-size:12px;letter-spacing:0.28em;color:rgba(245,240,232,0.28);text-transform:uppercase;margin-top:24px;text-align:center;filter:url(#stamp-light);">
-        Launching through select local partners and pop-ups. Online sales coming soon.
+      <p style="font-family:'Stint Ultra Condensed',serif;font-size:24px;letter-spacing:0.28em;color:rgba(245,240,232,0.28);text-transform:uppercase;margin-top:24px;text-align:center;filter:url(#stamp-light);">
+        Launching through select local partners and pop-ups.
       </p>
     </div>
   </section>
@@ -1005,8 +1026,17 @@
 
   <!-- FOOTER BAND -->
   <footer class="footer-band z">
+    <div class="footer-bg-word"><img src="news-logo.svg" alt="" aria-hidden="true" /></div>
     <div class="section-inner">
       <div class="footer-inner">
-        <div class="footer-brand">NEWS</div>
+        <div class="footer-brand"><img src="news-logo.svg" alt="NEWS" /></div>
         <div class="footer-right">
-          <p class="footer-tagline">North · East · West ·
+          <p class="footer-tagline">North · East · West · South</p>
+          <a class="footer-top-link" href="#top"><span>&uarr;</span> Back to top</a>
+          <p class="footer-copyright">&copy; 2026 NEWS&reg;. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
