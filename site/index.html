@@ -684,6 +684,118 @@
       filter: url(#stamp-light);
     }
 
+    /* ── FORMS ── */
+    .form-hidden { display: none; }
+
+    /* Newsletter signup (Current Drop) */
+    .signup-form {
+      max-width: 540px;
+      margin: 48px auto 0;
+      text-align: center;
+    }
+
+    .signup-label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.8;
+      color: rgba(245,240,232,0.45);
+      margin-bottom: 18px;
+    }
+
+    .signup-row {
+      display: flex;
+      border: 1px solid rgba(212,169,122,0.4);
+    }
+
+    .signup-input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      padding: 14px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: var(--off-white);
+      outline: none;
+    }
+
+    .signup-input::placeholder { color: rgba(245,240,232,0.3); }
+
+    .signup-btn {
+      background: var(--kraft);
+      color: var(--ink);
+      border: none;
+      padding: 14px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .signup-btn:hover { background: var(--kraft-light); }
+
+    /* Wholesale / partnership contact form */
+    .contact-form { max-width: 52ch; margin-bottom: 24px; }
+
+    .contact-form .field { margin-bottom: 18px; }
+
+    .contact-form label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+      margin-bottom: 8px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--off-white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: rgba(212,169,122,0.6); }
+
+    .contact-form textarea { resize: vertical; }
+
+    .contact-submit {
+      background: var(--kraft);
+      color: var(--ink);
+      border: none;
+      padding: 14px 32px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .contact-submit:hover { background: var(--kraft-light); }
+
+    .form-success {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--kraft);
+      line-height: 1.7;
+    }
+
     /* ── CONTACT / FOOTER ── */
     .footer-band {
       background: var(--kraft);
@@ -903,7 +1015,7 @@
     <div class="section-inner">
       <div class="section-header">
         <h2 class="section-title">Current Drop</h2>
-        <span class="section-count">Available now at select pop-ups &amp; coffee shops</span>
+        <span class="section-count">Select Santa Fe pop-ups &amp; coffee shops</span>
       </div>
 
       <div class="products-grid">
@@ -953,8 +1065,21 @@
       </div>
 
       <p style="font-family:'Stint Ultra Condensed',serif;font-size:24px;letter-spacing:0.28em;color:rgba(245,240,232,0.28);text-transform:uppercase;margin-top:24px;text-align:center;filter:url(#stamp-light);">
-        Launching through select local partners and pop-ups.
+        Launching soon with select Santa Fe partners.
       </p>
+
+      <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <p class="form-hidden"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label></p>
+        <div class="form-body">
+          <label class="signup-label" for="signup-email">Join the list for local drop announcements and future online availability.</label>
+          <div class="signup-row">
+            <input id="signup-email" class="signup-input" type="email" name="email" placeholder="you@email.com" required />
+            <button type="submit" class="signup-btn">Join</button>
+          </div>
+        </div>
+        <p class="form-success" hidden>Thanks &mdash; you&rsquo;re on the list. Watch your inbox for drop announcements.</p>
+      </form>
     </div>
   </section>
 
@@ -1017,8 +1142,34 @@
         </div>
         <div class="contact-right">
           <p class="contact-body">If you're a coffee shop, boutique, pop-up organizer, or retailer interested in carrying NEWS, reach out directly. We're building a small network of local partners and would like to hear from you.</p>
-          <a class="contact-email" href="/cdn-cgi/l/email-protection#0c64696060634c62697b7f7f787e6969787b696d7e226f6361"><span class="__cf_email__" data-cfemail="3b535e5757547b555e4c48484f495e5e4f4c5e5a4915585456">[email&#160;protected]</span></a>
+
+          <form name="wholesale-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
+            <input type="hidden" name="form-name" value="wholesale-contact" />
+            <p class="form-hidden"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label></p>
+            <div class="form-body">
+              <div class="field">
+                <label for="cf-name">Name</label>
+                <input id="cf-name" type="text" name="name" required />
+              </div>
+              <div class="field">
+                <label for="cf-shop">Shop name</label>
+                <input id="cf-shop" type="text" name="shop" />
+              </div>
+              <div class="field">
+                <label for="cf-email">Email</label>
+                <input id="cf-email" type="email" name="email" required />
+              </div>
+              <div class="field">
+                <label for="cf-message">Message</label>
+                <textarea id="cf-message" name="message" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="contact-submit">Send inquiry</button>
+            </div>
+            <p class="form-success" hidden>Thanks for reaching out &mdash; we&rsquo;ll be in touch soon.</p>
+          </form>
+
           <p class="contact-note">For wholesale, consignment, or pop-up partnership inquiries.</p>
+          <a class="contact-email" href="/cdn-cgi/l/email-protection#0c64696060634c62697b7f7f787e6969787b696d7e226f6361"><span class="__cf_email__" data-cfemail="3b535e5757547b555e4c48484f495e5e4f4c5e5a4915585456">[email&#160;protected]</span></a>
         </div>
       </div>
     </div>
@@ -1038,5 +1189,29 @@
       </div>
     </div>
   </footer>
+
+  <!-- Netlify Forms: inline success via AJAX, with native POST fallback if JS is off -->
+  <script>
+    (function () {
+      document.querySelectorAll('form[data-netlify]').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form)).toString()
+          }).then(function (res) {
+            if (!res.ok) throw new Error('Network response was not ok');
+            var body = form.querySelector('.form-body');
+            var success = form.querySelector('.form-success');
+            if (body) body.hidden = true;
+            if (success) success.hidden = false;
+          }).catch(function () {
+            form.submit();
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
