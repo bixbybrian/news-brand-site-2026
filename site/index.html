@@ -251,17 +251,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .phil-cell {
       padding: 64px 56px;
-      border-right: 1px solid rgba(255,255,255,0.08);
       position: relative;
       overflow: hidden;
     }
-
-    .phil-cell:last-child { border-right: none; }
 
     .phil-cell::before {
       content: attr(data-dir);
@@ -951,8 +947,6 @@
       .phil-grid {
         grid-template-columns: 1fr;
       }
-      .phil-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .phil-cell:last-child { border-bottom: none; }
 
       .products-grid { grid-template-columns: 1fr 1fr; }
 
