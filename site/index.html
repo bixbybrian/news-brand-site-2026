@@ -131,7 +131,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: clamp(480px, 70vw, 900px);
+      width: min(62vmin, 620px);
+      aspect-ratio: 1075 / 1007;
       user-select: none;
       pointer-events: none;
       animation: breathe 8s ease-in-out infinite;
@@ -139,8 +140,9 @@
 
     .hero-bg-word img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
+      object-fit: contain;
     }
 
     @keyframes breathe {
@@ -153,7 +155,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: min(480px, 80vw);
+      width: min(78vmin, 780px);
       opacity: 0.07;
       animation: spin-slow 60s linear infinite;
       pointer-events: none;
@@ -991,7 +993,7 @@
 
   <!-- HERO -->
   <section class="hero z" id="top">
-    <div class="hero-bg-word"><img src="news-logo-outline.svg" alt="" aria-hidden="true" /></div>
+    <div class="hero-bg-word"><img src="news-monogram-diamond-outline.svg" alt="" aria-hidden="true" /></div>
 
     <!-- Compass rose SVG -->
     <svg class="hero-compass" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
