@@ -121,13 +121,14 @@
 
     /* ── HERO ── */
     .hero {
-      /* Nav sits in normal flow (65px tall), so a full 100vh here pushes the
-         hero-sub text below the fold. Subtract the nav to fit the viewport. */
-      min-height: calc(100vh - 65px);
+      /* Nav (65px) sits in normal flow. Subtracting it plus the divider and a
+         sliver of the next section leaves the kraft rule and the top of Shop
+         visible at the fold, so the page reads as scrollable. */
+      min-height: calc(100vh - 240px);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 36px 60px;
+      justify-content: flex-start;
+      padding: 28px 36px 0;
       position: relative;
       overflow: hidden;
     }
@@ -180,7 +181,8 @@
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: rgba(245,240,232,0.45);
-      margin-bottom: 24px;
+      margin-bottom: 0;
+      white-space: nowrap;
     }
 
     .hero-title {
@@ -189,10 +191,11 @@
 
     .hero-sub {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      max-width: 360px;
-      margin-top: 40px;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 40px;
+      width: 100%;
       opacity: 0;
       animation: fade-up 0.8s 0.3s forwards;
     }
@@ -203,7 +206,8 @@
       line-height: 1.8;
       color: rgba(245,240,232,0.55);
       letter-spacing: 0.01em;
-      margin-bottom: 24px;
+      margin-bottom: 0;
+      text-align: right;
     }
 
     @keyframes fade-up {
@@ -891,7 +895,11 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 16px 20px; }
-      .hero { padding: 0 20px 48px; }
+      .hero { padding: 24px 20px 0; }
+
+      /* The single-line row does not fit narrow, so stack it left-aligned. */
+      .hero-sub { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .hero-desc { text-align: left; max-width: 360px; }
 
       .phil-grid {
         grid-template-columns: 1fr;
@@ -981,11 +989,7 @@
     </h1>
     <div class="hero-sub z">
       <p class="hero-tagline">North · East · West · South</p>
-      <p class="hero-desc">
-        Responsibly made products.<br />
-        Rooted in purpose,<br />
-        designed to say something.
-      </p>
+      <p class="hero-desc">Responsibly made products. Rooted in purpose, designed to say something.</p>
     </div>
   </section>
 
