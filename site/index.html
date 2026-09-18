@@ -521,11 +521,7 @@
       letter-spacing: 0.01em;
     }
 
-    /* ── ABOUT THE SHIRTS ── */
-    .about-shirts {
-      padding: 80px 0 100px;
-    }
-
+    /* ── PHOTO + TEXT LAYOUT ── */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
@@ -547,14 +543,6 @@
       filter: contrast(1.05) saturate(0.9);
     }
 
-    .about-body {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 15px;
-      line-height: 1.85;
-      color: rgba(245,240,232,0.55);
-      margin-bottom: 22px;
-      letter-spacing: 0.01em;
-    }
 
     .about-specs {
       display: grid;
@@ -919,7 +907,7 @@
       .footer-right { text-align: left; }
 
       .section-inner { padding: 0 20px; }
-      .philosophy, .collection, .roots, .about-shirts, .contact-section { padding-top: 80px; padding-bottom: 80px; }
+      .philosophy, .collection, .roots { padding-top: 80px; padding-bottom: 80px; }
     }
 
     @media (max-width: 560px) {
@@ -1125,21 +1113,6 @@
   </section>
   -->
 
-  <!-- ABOUT THE SHIRTS -->
-  <section class="about-shirts z">
-    <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-photo">
-          <img src="images/neck-label.jpg" alt="Inside neck label showing Made in Peru and GPS coordinates" />
-        </div>
-        <div class="about-text">
-          <h2 class="stamp-title">The Details</h2>
-          <p class="about-body">NEWS is North, East, West, South. Four directions, one fixed point. Inside the neck of every tee, a single set of coordinates marks the lighthouse at Point Conception, the elbow of the California coast and, to the Chumash, the Western Gate.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ROOTS -->
   <section class="roots z" id="roots">
     <div class="section-inner">
@@ -1159,9 +1132,16 @@
   <!-- COORDINATE -->
   <section class="coordinate-section z">
     <div class="section-inner">
-      <h2 class="stamp-title">The Coordinates</h2>
-      <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
-      <p class="coordinate-caption">Point Conception, California. The Western Gate, where the coast turns and the cold sea meets the warm.</p>
+      <div class="about-grid">
+        <div class="about-photo">
+          <img src="images/neck-label.jpg" alt="Inside neck label showing Made in Peru and GPS coordinates" />
+        </div>
+        <div>
+          <h2 class="stamp-title">The Coordinates</h2>
+          <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
+          <p class="coordinate-caption">Point Conception, California. The Western Gate, where the coast turns and the cold sea meets the warm.</p>
+        </div>
+      </div>
     </div>
   </section>
 
