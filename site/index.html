@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NEWS: North East West South</title>
-  <meta name="description" content="NEWS Streetwear. Responsibly made clothing with purpose. North East West South." />
+  <meta name="description" content="NEWS. Responsibly made products with purpose. North East West South." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Stint+Ultra+Condensed&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta property="og:title" content="NEWS: North East West South" />
-  <meta property="og:description" content="Responsibly made clothing. Rooted in purpose, designed to say something." />
+  <meta property="og:description" content="Responsibly made products. Rooted in purpose, designed to say something." />
   <meta property="og:image" content="og-image.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -984,9 +984,8 @@
     </a>
     <ul class="nav-links">
       <li><a href="#philosophy">Philosophy</a></li>
-      <li><a href="#collection">Collection</a></li>
+      <li><a href="#shop">Shop</a></li>
       <li><a href="#roots">Founded</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -1026,11 +1025,11 @@
     <div class="hero-sub z">
       <p class="hero-tagline">North · East · West · South</p>
       <p class="hero-desc">
-        Responsibly made clothing.<br />
+        Responsibly made products.<br />
         Rooted in purpose,<br />
         designed to say something.
       </p>
-      <a class="hero-cta" href="#collection">View Collection</a>
+      <a class="hero-cta" href="#shop">Visit the Shop</a>
     </div>
   </section>
 
@@ -1053,7 +1052,9 @@
     </div>
   </section>
 
-  <!-- COLLECTION -->
+  <!-- CURRENT DROP: hidden until a confirmed shirt/print run is ready to present.
+       Kept in place (not deleted) for reactivation later. -->
+  <!--
   <section class="collection z" id="collection">
     <div class="section-inner">
       <div class="section-header">
@@ -1065,7 +1066,6 @@
 
       <div class="products-grid">
 
-        <!-- TSHIRT FULL -->
         <div class="product-card">
           <div class="product-visual photo-card">
             <img src="images/tshirt-full.jpg" alt="NEWS Sacred Heart tee, full view on hanger" />
@@ -1079,7 +1079,6 @@
           </div>
         </div>
 
-        <!-- PRINT DETAIL -->
         <div class="product-card">
           <div class="product-visual photo-card">
             <img src="images/print-detail.jpg" alt="Close detail of Sacred Heart screenprint" />
@@ -1093,7 +1092,6 @@
           </div>
         </div>
 
-        <!-- HANG TAG -->
         <div class="product-card">
           <div class="product-visual photo-card" style="background:#8A9080;">
             <img src="images/hang-tag.jpg" alt="NEWS hang tag, kraft paper with grid and wordmark" />
@@ -1112,20 +1110,56 @@
       <p style="font-family:'Stint Ultra Condensed',serif;font-size:24px;letter-spacing:0.28em;color:rgba(245,240,232,0.28);text-transform:uppercase;margin-top:24px;text-align:center;filter:url(#stamp-light);">
         Launching soon with select Santa Fe partners.
       </p>
+    </div>
+  </section>
+  -->
 
-      <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form">
-        <input type="hidden" name="form-name" value="newsletter" />
-        <input type="hidden" name="subject" value="New newsletter signup: NEWS" />
-        <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-        <div class="form-body">
-          <label class="signup-label" for="signup-email">Join the list for local drop announcements and future online availability.</label>
-          <div class="signup-row">
-            <input id="signup-email" class="signup-input" type="email" name="email" placeholder="you@email.com" required />
-            <button type="submit" class="signup-btn">Join</button>
-          </div>
+  <!-- SHOP -->
+  <section class="roots z" id="shop">
+    <div class="section-inner">
+      <div class="roots-grid">
+        <div class="roots-left">
+          <h2 class="stamp-title-lg">Shop</h2>
         </div>
-        <p class="form-success" hidden>Thanks. You&rsquo;re on the list. Watch your inbox for drop announcements.</p>
-      </form>
+        <div class="roots-right">
+          <p>NEWS is opening its first shop, in Santa Fe, New Mexico. This is where NEWS goods will be found: the shirts, and what comes after them.</p>
+
+          <div class="about-specs" style="margin-top:0;">
+            <div class="spec-item">
+              <span class="spec-label">Location</span>
+              <span class="spec-value">Santa Fe, New Mexico</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Opening</span>
+              <span class="spec-value">2027</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Hours</span>
+              <span class="spec-value">To be announced</span>
+            </div>
+          </div>
+
+          <div class="roots-divider"></div>
+
+          <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form" style="margin:0;text-align:left;max-width:none;">
+            <input type="hidden" name="form-name" value="newsletter" />
+            <input type="hidden" name="subject" value="New newsletter signup: NEWS" />
+            <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+            <div class="form-body">
+              <label class="signup-label" for="signup-email" style="text-align:left;">Join the list for opening updates.</label>
+              <div class="signup-row">
+                <input id="signup-email" class="signup-input" type="email" name="email" placeholder="you@email.com" required />
+                <button type="submit" class="signup-btn">Join</button>
+              </div>
+            </div>
+            <p class="form-success" hidden>Thanks. You&rsquo;re on the list. Watch your inbox for opening updates.</p>
+          </form>
+
+          <p style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;color:rgba(245,240,232,0.45);margin-top:24px;">
+            Questions? <a class="contact-email" href="mailto:hello@newsstreetwear.com">hello@newsstreetwear.com</a>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1143,25 +1177,6 @@
           </div>
           <h2 class="stamp-title">About the Shirts</h2>
           <p class="about-body">NEWS is North, East, West, South. Four directions, one fixed point. Inside the neck of every tee, a single set of coordinates marks the lighthouse at Point Conception, the elbow of the California coast and, to the Chumash, the Western Gate.</p>
-          <p class="about-body">This run is cut and sewn in Peru from Pima cotton, some styles in a Tencel blend, then hand screenprinted in Santa Fe. Prints come in limited runs. When a run is gone, it's gone. No restocks.</p>
-          <div class="about-specs">
-            <div class="spec-item">
-              <span class="spec-label">Origin</span>
-              <span class="spec-value">Made in Peru</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Fabric</span>
-              <span class="spec-value">Pima cotton, select styles in a Tencel blend</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Print</span>
-              <span class="spec-value">Hand screenprint, Santa Fe NM</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Runs</span>
-              <span class="spec-value">Limited edition, no reprint</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1178,49 +1193,6 @@
           <p>
             NEWS was founded by artist and designer Sam Mott as a clothing project built around a clear point of view: clothing as a medium, direction as a philosophy. That orientation, fixed to a single point on the map, still guides the brand today.
           </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact-section z" id="contact">
-    <div class="section-inner">
-      <div class="contact-grid">
-        <div>
-          <h2 class="stamp-title-lg">Get in<br/>Touch</h2>
-        </div>
-        <div class="contact-right">
-          <p class="contact-body">If you're a coffee shop, boutique, pop-up organizer, or retailer interested in carrying NEWS, reach out directly. We're building a small network of local partners and would like to hear from you.</p>
-
-          <form name="wholesale-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
-            <input type="hidden" name="form-name" value="wholesale-contact" />
-            <input type="hidden" name="subject" value="New wholesale inquiry: NEWS" />
-            <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-            <div class="form-body">
-              <div class="field">
-                <label for="cf-name">Name</label>
-                <input id="cf-name" type="text" name="name" required />
-              </div>
-              <div class="field">
-                <label for="cf-shop">Shop name</label>
-                <input id="cf-shop" type="text" name="shop" />
-              </div>
-              <div class="field">
-                <label for="cf-email">Email</label>
-                <input id="cf-email" type="email" name="email" required />
-              </div>
-              <div class="field">
-                <label for="cf-message">Message</label>
-                <textarea id="cf-message" name="message" rows="4" required></textarea>
-              </div>
-              <button type="submit" class="contact-submit">Send inquiry</button>
-            </div>
-            <p class="form-success" hidden>Thanks for reaching out. We&rsquo;ll be in touch soon.</p>
-          </form>
-
-          <p class="contact-note">For wholesale, consignment, or pop-up partnership inquiries.</p>
-          <a class="contact-email" href="mailto:hello@newsstreetwear.com">hello@newsstreetwear.com</a>
         </div>
       </div>
     </div>
