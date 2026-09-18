@@ -202,27 +202,6 @@
       margin-bottom: 24px;
     }
 
-    .hero-cta {
-      display: inline-block;
-      padding: 16px 36px;
-      border: 1px solid rgba(245,240,232,0.3);
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--off-white);
-      text-decoration: none;
-      transition: all 0.25s;
-      background: transparent;
-      white-space: nowrap;
-    }
-
-    .hero-cta:hover {
-      background: var(--off-white);
-      color: var(--ink);
-      border-color: var(--off-white);
-    }
-
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
@@ -551,7 +530,7 @@
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       gap: 72px;
-      align-items: center;
+      align-items: start;
     }
 
     .about-photo {
@@ -616,9 +595,8 @@
     }
 
     /* ── COORDINATE MARK ── */
-    .coordinate-feature {
-      margin-bottom: 36px;
-      padding-bottom: 28px;
+    .coordinate-section {
+      padding: 0 0 110px;
     }
 
     .coordinate-string {
@@ -691,24 +669,6 @@
       color: rgba(245,240,232,0.55);
       margin-bottom: 28px;
       max-width: 52ch;
-    }
-
-    .contact-email {
-      display: inline-block;
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      color: var(--kraft);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(212,169,122,0.35);
-      padding-bottom: 3px;
-      margin-bottom: 16px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .contact-email:hover {
-      color: var(--off-white);
-      border-color: rgba(245,240,232,0.4);
     }
 
     .contact-note {
@@ -1036,12 +996,56 @@
         Rooted in purpose,<br />
         designed to say something.
       </p>
-      <a class="hero-cta" href="#shop">Visit the Shop</a>
     </div>
   </section>
 
   <!-- DIVIDER BAR -->
   <div class="ticker-wrap z"></div>
+
+  <!-- SHOP -->
+  <section class="roots z" id="shop">
+    <div class="section-inner">
+      <div class="roots-grid">
+        <div class="roots-left">
+          <h2 class="stamp-title-lg">Shop</h2>
+        </div>
+        <div class="roots-right">
+          <p>NEWS is opening its first shop, in Santa Fe, New Mexico. This is where NEWS goods will be found: the shirts, and what comes after them.</p>
+
+          <div class="about-specs" style="margin-top:0;">
+            <div class="spec-item">
+              <span class="spec-label">Location</span>
+              <span class="spec-value">Santa Fe, New Mexico</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Opening</span>
+              <span class="spec-value">2027</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Hours</span>
+              <span class="spec-value">To be announced</span>
+            </div>
+          </div>
+
+          <div class="roots-divider"></div>
+
+          <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form" style="margin:0;text-align:left;max-width:none;">
+            <input type="hidden" name="form-name" value="newsletter" />
+            <input type="hidden" name="subject" value="New newsletter signup: NEWS" />
+            <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+            <div class="form-body">
+              <label class="signup-label" for="signup-email" style="text-align:left;">Join the list for opening updates.</label>
+              <div class="signup-row">
+                <input id="signup-email" class="signup-input" type="email" name="email" placeholder="you@email.com" required />
+                <button type="submit" class="signup-btn">Join</button>
+              </div>
+            </div>
+            <p class="form-success" hidden>Thanks. You&rsquo;re on the list. Watch your inbox for opening updates.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- PHILOSOPHY -->
   <section class="philosophy z" id="philosophy">
@@ -1121,55 +1125,6 @@
   </section>
   -->
 
-  <!-- SHOP -->
-  <section class="roots z" id="shop">
-    <div class="section-inner">
-      <div class="roots-grid">
-        <div class="roots-left">
-          <h2 class="stamp-title-lg">Shop</h2>
-        </div>
-        <div class="roots-right">
-          <p>NEWS is opening its first shop, in Santa Fe, New Mexico. This is where NEWS goods will be found: the shirts, and what comes after them.</p>
-
-          <div class="about-specs" style="margin-top:0;">
-            <div class="spec-item">
-              <span class="spec-label">Location</span>
-              <span class="spec-value">Santa Fe, New Mexico</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Opening</span>
-              <span class="spec-value">2027</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Hours</span>
-              <span class="spec-value">To be announced</span>
-            </div>
-          </div>
-
-          <div class="roots-divider"></div>
-
-          <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="signup-form" style="margin:0;text-align:left;max-width:none;">
-            <input type="hidden" name="form-name" value="newsletter" />
-            <input type="hidden" name="subject" value="New newsletter signup: NEWS" />
-            <p class="form-hidden" aria-hidden="true"><label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-            <div class="form-body">
-              <label class="signup-label" for="signup-email" style="text-align:left;">Join the list for opening updates.</label>
-              <div class="signup-row">
-                <input id="signup-email" class="signup-input" type="email" name="email" placeholder="you@email.com" required />
-                <button type="submit" class="signup-btn">Join</button>
-              </div>
-            </div>
-            <p class="form-success" hidden>Thanks. You&rsquo;re on the list. Watch your inbox for opening updates.</p>
-          </form>
-
-          <p style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;color:rgba(245,240,232,0.45);margin-top:24px;">
-            Questions? <a class="contact-email" href="mailto:hello@newsstreetwear.com">hello@newsstreetwear.com</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ABOUT THE SHIRTS -->
   <section class="about-shirts z">
     <div class="section-inner">
@@ -1178,10 +1133,6 @@
           <img src="images/neck-label.jpg" alt="Inside neck label showing Made in Peru and GPS coordinates" />
         </div>
         <div class="about-text">
-          <div class="coordinate-feature">
-            <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
-            <p class="coordinate-caption">Point Conception, California. The Western Gate, where the coast turns and the cold sea meets the warm.</p>
-          </div>
           <h2 class="stamp-title">About the Shirts</h2>
           <p class="about-body">NEWS is North, East, West, South. Four directions, one fixed point. Inside the neck of every tee, a single set of coordinates marks the lighthouse at Point Conception, the elbow of the California coast and, to the Chumash, the Western Gate.</p>
         </div>
@@ -1202,6 +1153,14 @@
           </p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- COORDINATE -->
+  <section class="coordinate-section z">
+    <div class="section-inner">
+      <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
+      <p class="coordinate-caption">Point Conception, California. The Western Gate, where the coast turns and the cold sea meets the warm.</p>
     </div>
   </section>
 
