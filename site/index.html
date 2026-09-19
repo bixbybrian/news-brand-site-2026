@@ -864,6 +864,10 @@
         grid-template-columns: 1fr;
       }
 
+      /* Stacked to one column here, so the cell's own side padding just eats
+         width the headings need. Fall back to the section gutter. */
+      .phil-cell { padding: 48px 0; }
+
       .products-grid { grid-template-columns: 1fr 1fr; }
 
 
@@ -1023,7 +1027,7 @@
     <div class="section-inner">
       <div class="phil-grid">
         <div class="phil-cell">
-          <h2 class="stamp-title">The Name:<br/>Four Directions</h2>
+          <h2 class="stamp-title">Four Directions</h2>
           <p class="cell-text">NEWS doesn't stand for headlines. NEWS is North, East, West, South: four directions around one fixed point, suggesting movement and a wider view. Everything we produce carries that orientation.</p>
         </div>
         <div class="phil-cell">
@@ -1031,7 +1035,7 @@
           <p class="cell-text">The NEWS Shop isn't just a storefront. It is a physical anchor in Santa Fe for original artwork, printed matter, and house goods: a gathering point for studio and archive under one fixed roof.</p>
         </div>
         <div class="phil-cell">
-          <h2 class="stamp-title">The Mission:<br/>Made With Intent</h2>
+          <h2 class="stamp-title">Made With Intent</h2>
           <p class="cell-text">NEWS makes things with a point of view. Thoughtful pieces, images, words, and ideas that ask us to look a little closer at the world we share, and at the changes shaping it.</p>
         </div>
         <div class="phil-cell" id="roots">
