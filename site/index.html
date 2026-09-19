@@ -532,7 +532,7 @@
     .spec-label {
       display: block;
       font-family: 'Stint Ultra Condensed', serif;
-      font-size: 12px;
+      font-size: 19px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--kraft);
@@ -543,7 +543,7 @@
     .spec-value {
       display: block;
       font-family: 'Lora', Georgia, serif;
-      font-size: 13px;
+      font-size: 21px;
       color: rgba(245,240,232,0.7);
       letter-spacing: 0.01em;
     }
@@ -877,11 +877,14 @@
       .philosophy, .collection, .roots { padding-top: 80px; padding-bottom: 80px; }
     }
 
+    /* At the larger spec type, three columns start wrapping "Santa Fe, New
+       Mexico" below about 780px, so collapse before that rather than at 560. */
+    @media (max-width: 800px) {
+      .shop-specs { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 560px) {
       .nav-links { display: none; }
-
-      /* Three columns leaves ~85px each, which wraps the values to four lines. */
-      .shop-specs { grid-template-columns: 1fr; }
 
       .products-grid { grid-template-columns: 1fr; }
     }
