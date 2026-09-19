@@ -529,29 +529,6 @@
       letter-spacing: 0.01em;
     }
 
-    /* ── PHOTO + TEXT LAYOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 72px;
-      align-items: start;
-    }
-
-    .about-photo {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-photo img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      aspect-ratio: 3/4;
-      filter: contrast(1.05) saturate(0.9);
-    }
-
-
     .about-specs {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -591,8 +568,9 @@
     }
 
     /* ── COORDINATE MARK ── */
+    /* Sits low in the dark grid as a closing footnote, well clear of the grid above. */
     .coordinate-section {
-      padding: 0 0 110px;
+      padding: 140px 0 96px;
     }
 
     .coordinate-string {
@@ -907,8 +885,6 @@
 
       .products-grid { grid-template-columns: 1fr 1fr; }
 
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-photo img { aspect-ratio: 4/3; }
 
       .roots-grid { grid-template-columns: 1fr; gap: 40px; }
       .roots-left { position: static; }
@@ -1050,16 +1026,16 @@
           <p class="cell-text">NEWS doesn't stand for headlines. NEWS is North, East, West, South: four directions around one fixed point, suggesting movement and a wider view. Everything we produce carries that orientation.</p>
         </div>
         <div class="phil-cell" data-dir="E">
+          <h2 class="stamp-title">Shop</h2>
+          <p class="cell-text">The NEWS Shop isn't just a storefront. It is a physical anchor in Santa Fe for original artwork, printed matter, and house goods: a gathering point for studio and archive under one fixed roof.</p>
+        </div>
+        <div class="phil-cell" data-dir="W">
           <h2 class="stamp-title">The Mission:<br/>Made With Intent</h2>
           <p class="cell-text">NEWS makes things with a point of view. Thoughtful pieces, images, words, and ideas that ask us to look a little closer at the world we share, and at the changes shaping it.</p>
         </div>
-        <div class="phil-cell" data-dir="W" id="roots">
+        <div class="phil-cell" data-dir="S" id="roots">
           <h2 class="stamp-title">Founded</h2>
           <p class="cell-text">NEWS was founded by artist and designer Sam Mott as a clothing project built around a clear point of view: clothing as a medium, direction as a philosophy. That orientation, fixed to a single point on the map, still guides what NEWS makes today.</p>
-        </div>
-        <div class="phil-cell" data-dir="S">
-          <h2 class="stamp-title">Shop</h2>
-          <p class="cell-text">The NEWS Shop isn't just a storefront. It is a physical anchor in Santa Fe for original artwork, printed matter, and house goods: a gathering point for studio and archive under one fixed roof.</p>
         </div>
       </div>
     </div>
@@ -1130,16 +1106,8 @@
   <!-- COORDINATE -->
   <section class="coordinate-section z">
     <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-photo">
-          <img src="images/neck-label.jpg" alt="Inside neck label showing Made in Peru and GPS coordinates" />
-        </div>
-        <div>
-          <h2 class="stamp-title">The Coordinates</h2>
-          <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
-          <p class="coordinate-caption">A single set of coordinates marks the lighthouse at Point Conception, California, the elbow of the coast where the cold sea meets the warm. To the Chumash, it is the Western Gate.</p>
-        </div>
-      </div>
+      <p class="coordinate-string">34&deg; 26' 53.21" N &middot; 120&deg; 28' 17.18" W</p>
+      <p class="coordinate-caption">A single set of coordinates marks the lighthouse at Point Conception, California, the elbow of the coast where the cold sea meets the warm. To the Chumash, it is the Western Gate.</p>
     </div>
   </section>
 
