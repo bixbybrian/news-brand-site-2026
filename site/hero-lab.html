@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Lab &middot; NEWS</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Stint+Ultra+Condensed&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <style>
+    :root {
+      --kraft: #D4A97A;
+      --kraft-light: #E8C99A;
+      --kraft-dark: #B8895A;
+      --ink: #1A1410;
+      --off-white: #F5F0E8;
+
+      /* Live controls */
+      --ink-opacity: 0.45;
+      --speed: 1;
+      --outline-opacity: 0.22;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--ink);
+      color: var(--off-white);
+      font-family: 'Lora', Georgia, serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .z { position: relative; z-index: 1; }
+
+    /* ── NAV (simplified copy of the live nav) ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-brand img { height: 28px; width: auto; display: block; filter: brightness(0) invert(1); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(245,240,232,0.5); text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 240px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 28px 36px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-sub {
+      display: flex; flex-direction: row; align-items: baseline;
+      justify-content: space-between; gap: 40px; width: 100%;
+    }
+    .hero-tagline {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.3em;
+      text-transform: uppercase; color: rgba(245,240,232,0.45); white-space: nowrap;
+    }
+    .hero-desc {
+      font-size: 14px; line-height: 1.8; color: rgba(245,240,232,0.55); text-align: right;
+    }
+
+    .hero-mark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(62vmin, 620px);
+      aspect-ratio: 1075 / 1007;
+      pointer-events: none;
+      animation: breathe 8s ease-in-out infinite;
+    }
+    .hero-mark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.012); }
+    }
+
+    /* ── THE INK FIELD ──
+       Every moving layer lives inside a clip of the mark, so the fill can only
+       ever appear within the logo contour. Blobs are larger than the mark and
+       heavily overlapped, so what reads is a broad tonal drift rather than four
+       discrete circles orbiting. */
+    .ink-field { opacity: var(--ink-opacity); }
+
+    .stir {
+      transform-box: view-box;
+      transform-origin: 537.5px 503.5px;
+      animation-name: stir;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    /* Long, mutually non-repeating periods so the four never resync into a
+       visible pinwheel. Two run counter to the others. */
+    .s1 { animation-duration: calc(150s * var(--speed)); }
+    .s2 { animation-duration: calc(190s * var(--speed)); animation-direction: reverse; }
+    .s3 { animation-duration: calc(230s * var(--speed)); }
+    .s4 { animation-duration: calc(270s * var(--speed)); animation-direction: reverse; }
+
+    @keyframes stir { to { transform: rotate(360deg); } }
+
+    .pulse {
+      animation-name: pulse;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+    .p1 { animation-duration: calc(90s * var(--speed)); }
+    .p2 { animation-duration: calc(130s * var(--speed)); }
+    @keyframes pulse { from { opacity: 0.45; } to { opacity: 0.95; } }
+
+    .mark-outline { stroke: rgba(245,240,232,var(--outline-opacity)); }
+
+    /* Driver overlay: shows where the four invisible "arrows" actually are. */
+    .drivers { opacity: 0; transition: opacity .25s; }
+    body.show-drivers .drivers { opacity: 1; }
+
+    /* ── DIVIDER + A SLICE OF WHAT FOLLOWS ── */
+    .ticker-wrap {
+      background: var(--kraft);
+      border-top: 1px solid var(--kraft-dark);
+      border-bottom: 1px solid var(--kraft-dark);
+      height: 8px;
+    }
+    .after {
+      max-width: 1200px; margin: 0 auto; padding: 80px 36px 160px;
+    }
+    .spec-label {
+      display: block; font-family: 'Stint Ultra Condensed', serif; font-size: 12px;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--kraft); margin-bottom: 4px;
+    }
+    .spec-value { display: block; font-size: 13px; color: rgba(245,240,232,0.7); }
+    .shop-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 48px; }
+
+    /* ── CONTROLS (lab only) ── */
+    .panel {
+      position: fixed; right: 18px; bottom: 18px; z-index: 50;
+      background: rgba(26,20,16,0.92);
+      border: 1px solid rgba(245,240,232,0.15);
+      padding: 16px 18px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(245,240,232,0.6);
+      backdrop-filter: blur(10px);
+      min-width: 230px;
+    }
+    .panel h4 { font-size: 10px; letter-spacing: 0.22em; color: var(--kraft); margin-bottom: 12px; font-weight: 400; }
+    .panel label { display: block; margin-bottom: 12px; }
+    .panel .val { color: var(--off-white); float: right; }
+    .panel input[type=range] { width: 100%; margin-top: 6px; accent-color: var(--kraft); }
+    .panel .row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .panel small { display: block; margin-top: 10px; text-transform: none; letter-spacing: 0.02em; font-size: 10px; color: rgba(245,240,232,0.35); line-height: 1.5; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stir, .pulse, .hero-mark { animation: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 24px 20px 0; }
+      .hero-sub { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .hero-desc { text-align: left; max-width: 360px; }
+      .after { padding: 60px 20px 120px; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .shop-specs { grid-template-columns: 1fr; }
+      .panel { left: 18px; right: 18px; min-width: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="z">
+    <a class="nav-brand" href="index.html"><img src="news-logo.svg" alt="NEWS" /></a>
+    <ul class="nav-links">
+      <li><a href="index.html">&larr; Back to live</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero z">
+    <div class="hero-sub">
+      <p class="hero-tagline">North &middot; East &middot; West &middot; South</p>
+      <p class="hero-desc">Responsibly made products. Rooted in purpose, designed to say something.</p>
+    </div>
+
+    <div class="hero-mark">
+      <svg viewBox="0 0 1075 1007" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="markClip">
+            <path clip-rule="evenodd" d="M556,38.73s63.54,65.2,66.73,78.82c6.09,25.96-44.73,238.45-44.73,238.45l149.91-132.73,278.81,300.63-50,46.82-168.73-166.73-42.55,34.36,167.1,173-44.64,40.82-167.73-171.18-45.27,38.55,166.82,177.09-110.28,101.72-55.54-56.91c-3.05-28.63,4.57-32.14-12.18-59.06-24.81-39.87-59.39-53.21-72-43.66s2.82,49.27,2.82,49.27c0,0,49.73,79.33,60.71,166-.39,18.9-22.09,34.91-22.09,34.91l-91.73,85.64-281-302.28,141.37-185.27-206.37,115.36-104.7-113.07L556,38.73ZM526.33,214.11l-50.66,224.22c-9.12-9.33-51-54.11-51-54.11l-178.89,82.11,280.55-252.22ZM494,465.44l46.89,42.23-158.22,113.66,111.33-155.89ZM470,679.89l16.78-7.56s1.45,38.42,16.66,55.67c1.05,1.19,2.39,2.49,3.76,4.08,14.85,17.31,41.56,60.57,39.8,88.92-.77,12.43-7.78,15.89-7.78,15.89-23.3,19.18-70.26-31.18-79-54.89-9.73-26.4-9.04-29.49-.11-50.78,3.08-7.33-25-30.11-25-30.11l34.89-21.22Z"/>
+          </clipPath>
+
+          <radialGradient id="inkLightA">
+            <stop offset="0" stop-color="#F2DCB8" stop-opacity="1"/>
+            <stop offset="0.55" stop-color="#E8C99A" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#E8C99A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="inkLightB">
+            <stop offset="0" stop-color="#F0DCBA" stop-opacity="0.75"/>
+            <stop offset="0.6" stop-color="#E8C99A" stop-opacity="0.25"/>
+            <stop offset="1" stop-color="#E8C99A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="inkDarkA">
+            <stop offset="0" stop-color="#8A6440" stop-opacity="0.95"/>
+            <stop offset="0.55" stop-color="#B8895A" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#B8895A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="inkDarkB">
+            <stop offset="0" stop-color="#6F4F33" stop-opacity="0.9"/>
+            <stop offset="0.6" stop-color="#B8895A" stop-opacity="0.25"/>
+            <stop offset="1" stop-color="#B8895A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- INK: clipped to the mark, so it can never spill past the contour -->
+        <g class="ink-field" clip-path="url(#markClip)">
+          <rect x="0" y="0" width="1075" height="1007" fill="#D4A97A"/>
+
+          <g class="stir s1"><g class="pulse p1">
+            <ellipse cx="537.5" cy="215" rx="430" ry="385" fill="url(#inkLightA)"/>
+          </g></g>
+          <g class="stir s2">
+            <ellipse cx="537.5" cy="792" rx="420" ry="370" fill="url(#inkDarkA)"/>
+          </g>
+          <g class="stir s3"><g class="pulse p2">
+            <ellipse cx="262" cy="503.5" rx="400" ry="425" fill="url(#inkDarkB)"/>
+          </g></g>
+          <g class="stir s4">
+            <ellipse cx="813" cy="503.5" rx="415" ry="395" fill="url(#inkLightB)"/>
+          </g>
+        </g>
+
+        <!-- The four "invisible arrows", revealed only by the lab toggle -->
+        <g class="drivers" clip-path="url(#markClip)">
+          <g class="stir s1"><circle cx="537.5" cy="215" r="9" fill="#fff"/><line x1="537.5" y1="503.5" x2="537.5" y2="215" stroke="#fff" stroke-width="2"/></g>
+          <g class="stir s2"><circle cx="537.5" cy="792" r="9" fill="#fff"/><line x1="537.5" y1="503.5" x2="537.5" y2="792" stroke="#fff" stroke-width="2"/></g>
+          <g class="stir s3"><circle cx="262" cy="503.5" r="9" fill="#fff"/><line x1="537.5" y1="503.5" x2="262" y2="503.5" stroke="#fff" stroke-width="2"/></g>
+          <g class="stir s4"><circle cx="813" cy="503.5" r="9" fill="#fff"/><line x1="537.5" y1="503.5" x2="813" y2="503.5" stroke="#fff" stroke-width="2"/></g>
+        </g>
+
+        <!-- Hairline contour stays on top so the edge reads crisp over the fill -->
+        <path class="mark-outline" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"
+              stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd"
+              d="M556,38.73s63.54,65.2,66.73,78.82c6.09,25.96-44.73,238.45-44.73,238.45l149.91-132.73,278.81,300.63-50,46.82-168.73-166.73-42.55,34.36,167.1,173-44.64,40.82-167.73-171.18-45.27,38.55,166.82,177.09-110.28,101.72-55.54-56.91c-3.05-28.63,4.57-32.14-12.18-59.06-24.81-39.87-59.39-53.21-72-43.66s2.82,49.27,2.82,49.27c0,0,49.73,79.33,60.71,166-.39,18.9-22.09,34.91-22.09,34.91l-91.73,85.64-281-302.28,141.37-185.27-206.37,115.36-104.7-113.07L556,38.73ZM526.33,214.11l-50.66,224.22c-9.12-9.33-51-54.11-51-54.11l-178.89,82.11,280.55-252.22ZM494,465.44l46.89,42.23-158.22,113.66,111.33-155.89ZM470,679.89l16.78-7.56s1.45,38.42,16.66,55.67c1.05,1.19,2.39,2.49,3.76,4.08,14.85,17.31,41.56,60.57,39.8,88.92-.77,12.43-7.78,15.89-7.78,15.89-23.3,19.18-70.26-31.18-79-54.89-9.73-26.4-9.04-29.49-.11-50.78,3.08-7.33-25-30.11-25-30.11l34.89-21.22Z"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="ticker-wrap z"></div>
+
+  <div class="after z">
+    <div class="shop-specs">
+      <div><span class="spec-label">Location</span><span class="spec-value">Santa Fe, New Mexico</span></div>
+      <div><span class="spec-label">Opening</span><span class="spec-value">2027</span></div>
+      <div><span class="spec-label">Hours</span><span class="spec-value">To be announced</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Hero Lab</h4>
+    <label>Fill <span class="val" id="vOpacity">0.45</span>
+      <input type="range" id="opacity" min="0" max="1" step="0.05" value="0.45" />
+    </label>
+    <label>Slower &rarr; <span class="val" id="vSpeed">1.0&times;</span>
+      <input type="range" id="speed" min="0.4" max="4" step="0.1" value="1" />
+    </label>
+    <label>Outline <span class="val" id="vOutline">0.22</span>
+      <input type="range" id="outline" min="0" max="1" step="0.02" value="0.22" />
+    </label>
+    <div class="row">
+      <input type="checkbox" id="drivers" /> <label for="drivers" style="margin:0">Show the 4 drivers</label>
+    </div>
+    <small>Base rotation is 150&ndash;270s per turn at 1&times;. Drag Slower to the right to calm it further.</small>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      function bind(id, prop, fmt) {
+        var el = document.getElementById(id), out = document.getElementById('v' + id[0].toUpperCase() + id.slice(1));
+        el.addEventListener('input', function () {
+          root.style.setProperty(prop, el.value);
+          out.textContent = fmt(el.value);
+        });
+      }
+      bind('opacity', '--ink-opacity', function (v) { return (+v).toFixed(2); });
+      bind('speed', '--speed', function (v) { return (+v).toFixed(1) + '×'; });
+      bind('outline', '--outline-opacity', function (v) { return (+v).toFixed(2); });
+      document.getElementById('drivers').addEventListener('change', function (e) {
+        document.body.classList.toggle('show-drivers', e.target.checked);
+      });
+    })();
+  </script>
+</body>
+</html>
