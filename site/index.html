@@ -123,9 +123,9 @@
 
     /* ── HERO ── */
     .hero {
-      /* Nav (65px) sits in normal flow. Subtracting it plus the divider and a
-         sliver of the next section leaves the kraft rule and the top of Shop
-         visible at the fold, so the page reads as scrollable. */
+      /* Nav (65px) sits in normal flow. Subtracting it plus a sliver of the
+         next section leaves the top of Shop visible at the fold, so the page
+         reads as scrollable. */
       min-height: calc(100vh - 240px);
       display: flex;
       flex-direction: column;
@@ -254,14 +254,6 @@
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── STATIC DIVIDER BAR ── */
-    .ticker-wrap {
-      background: var(--kraft);
-      border-top: 1px solid var(--kraft-dark);
-      border-bottom: 1px solid var(--kraft-dark);
-      height: 8px;
     }
 
     /* ── SECTION LAYOUT ── */
@@ -982,9 +974,6 @@
       <p class="hero-desc">Responsibly made products. Rooted in purpose, designed to say something.</p>
     </div>
   </section>
-
-  <!-- DIVIDER BAR -->
-  <div class="ticker-wrap z"></div>
 
   <!-- SHOP -->
   <section class="roots z" id="shop">
