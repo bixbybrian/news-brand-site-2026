@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Archive &middot; Rotating Compass</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!--
+    ARCHIVE. Frozen copy of the hero that ran on the live site until
+    2026-09-18: hairline outline mark with a visible compass rose rotating
+    behind it at 60s, both static in colour. Superseded by the gold ink fill
+    with cardinal dwell. Kept verbatim so it can be restored or referred back
+    to; do not edit to match later changes.
+  -->
+
+  <style>
+    :root {
+      --kraft: #D4A97A;
+      --kraft-light: #E8C99A;
+      --kraft-dark: #B8895A;
+      --ink: #1A1410;
+      --off-white: #F5F0E8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--ink);
+      color: var(--off-white);
+      font-family: 'Lora', Georgia, serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .z { position: relative; z-index: 1; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(26,20,16,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .nav-brand img {
+      height: 28px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .hero {
+      /* Nav (65px) sits in normal flow. Subtracting it plus the divider and a
+         sliver of the next section leaves the kraft rule and the top of Shop
+         visible at the fold, so the page reads as scrollable. */
+      min-height: calc(100vh - 240px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 28px 36px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-word {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(62vmin, 620px);
+      aspect-ratio: 1075 / 1007;
+      user-select: none;
+      pointer-events: none;
+      animation: breathe 8s ease-in-out infinite;
+    }
+
+    .hero-bg-word img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.65; transform: translate(-50%, -50%) scale(1.012); }
+    }
+
+    .hero-compass {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* Sized against the diamond's inscribed circle, not its width, so the
+         arrows stay inside the mark through the full rotation. */
+      width: min(39vmin, 390px);
+      opacity: 0.07;
+      animation: spin-slow 60s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spin-slow {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .hero-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.45);
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+
+    .hero-title {
+      display: none;
+    }
+
+    .hero-sub {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 40px;
+      width: 100%;
+      opacity: 0;
+      animation: fade-up 0.8s 0.3s forwards;
+    }
+
+    .hero-desc {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(245,240,232,0.55);
+      letter-spacing: 0.01em;
+      margin-bottom: 0;
+      text-align: right;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ticker-wrap {
+      background: var(--kraft);
+      border-top: 1px solid var(--kraft-dark);
+      border-bottom: 1px solid var(--kraft-dark);
+      height: 8px;
+    }
+
+    .stamp {
+      position: fixed; left: 18px; bottom: 18px; z-index: 50;
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(245,240,232,0.4);
+      border: 1px solid rgba(245,240,232,0.15); padding: 10px 14px;
+      background: rgba(26,20,16,0.9);
+    }
+    .stamp a { color: var(--kraft); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 24px 20px 0; }
+      .hero-sub { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .hero-desc { text-align: left; max-width: 360px; }
+    }
+    @media (max-width: 560px) { .nav-links { display: none; } }
+  </style>
+</head>
+
+<body>
+  <nav class="z">
+    <a class="nav-brand" href="index.html"><img src="news-logo.svg" alt="NEWS" /></a>
+    <ul class="nav-links"><li><a href="index.html">&larr; Back to live</a></li></ul>
+  </nav>
+
+  <section class="hero z" id="top">
+    <div class="hero-bg-word"><img src="news-monogram-diamond-outline.svg" alt="" aria-hidden="true" /></div>
+
+    <!-- Compass rose SVG -->
+    <svg class="hero-compass" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="4" fill="white"/>
+      <!-- Cardinal lines -->
+      <line x1="100" y1="4" x2="100" y2="196" stroke="white" stroke-width="0.5"/>
+      <line x1="4" y1="100" x2="196" y2="100" stroke="white" stroke-width="0.5"/>
+      <!-- Diagonal lines -->
+      <line x1="32" y1="32" x2="168" y2="168" stroke="white" stroke-width="0.3" opacity="0.5"/>
+      <line x1="168" y1="32" x2="32" y2="168" stroke="white" stroke-width="0.3" opacity="0.5"/>
+      <!-- N arrow -->
+      <polygon points="100,8 95,28 100,22 105,28" fill="white"/>
+      <!-- S arrow -->
+      <polygon points="100,192 95,172 100,178 105,172" fill="white" opacity="0.5"/>
+      <!-- E arrow -->
+      <polygon points="192,100 172,95 178,100 172,105" fill="white" opacity="0.5"/>
+      <!-- W arrow -->
+      <polygon points="8,100 28,95 22,100 28,105" fill="white" opacity="0.5"/>
+      <!-- Labels -->
+      <text x="100" y="52" font-family="serif" font-size="10" fill="white" text-anchor="middle" letter-spacing="2">N</text>
+      <text x="100" y="158" font-family="serif" font-size="10" fill="white" text-anchor="middle" letter-spacing="2" opacity="0.5">S</text>
+      <text x="155" y="104" font-family="serif" font-size="10" fill="white" text-anchor="middle" letter-spacing="2" opacity="0.5">E</text>
+      <text x="45" y="104" font-family="serif" font-size="10" fill="white" text-anchor="middle" letter-spacing="2" opacity="0.5">W</text>
+    </svg>
+
+    <h1 class="hero-title z">
+      <img src="news-logo.svg" alt="NEWS" />
+    </h1>
+    <div class="hero-sub z">
+      <p class="hero-tagline">North · East · West · South</p>
+      <p class="hero-desc">Responsibly made products. Rooted in purpose, designed to say something.</p>
+    </div>
+  </section>
+
+  <div class="ticker-wrap z"></div>
+
+  <div class="stamp">Hero archive &middot; rotating compass &middot; retired 2026-09-18 &middot; <a href="index.html">current hero</a></div>
+</body>
+</html>
