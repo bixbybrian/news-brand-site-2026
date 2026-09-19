@@ -13,7 +13,7 @@
   <style>
     :root {
       --kraft: #D4A97A; --ink: #1A1410; --off-white: #F5F0E8;
-      --ember: 0.85; --scorch: 0.80; --char: 0.95; --grain: 0.85; --speed: 1;
+      --ember: 1.15; --scorch: 0.00; --char: 0.65; --grain: 1.15; --fissure: 0.10; --speed: 1.7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--ink); color: var(--off-white); font-family: 'Lora', Georgia, serif; overflow-x: hidden; cursor: crosshair; }
@@ -100,13 +100,14 @@
 
   <div class="panel">
     <h4>Ember Lab</h4>
-    <label>Ember <span class="val" id="vEmber">0.85</span><input type="range" id="ember" min="0" max="1.4" step="0.05" value="0.85" /></label>
-    <label>Grain <span class="val" id="vGrain">0.85</span><input type="range" id="grain" min="0" max="1.4" step="0.05" value="0.85" /></label>
-    <label>Char <span class="val" id="vChar">0.95</span><input type="range" id="char" min="0" max="1" step="0.05" value="0.95" /></label>
-    <label>Scorch <span class="val" id="vScorch">0.80</span><input type="range" id="scorch" min="0" max="1.4" step="0.05" value="0.80" /></label>
-    <label>Faster &rarr; <span class="val" id="vSpeed">1.0&times;</span><input type="range" id="speed" min="0.2" max="3" step="0.1" value="1" /></label>
+    <label>Ember <span class="val" id="vEmber">1.15</span><input type="range" id="ember" min="0" max="1.6" step="0.05" value="1.15" /></label>
+    <label>Grain <span class="val" id="vGrain">1.15</span><input type="range" id="grain" min="0" max="1.4" step="0.05" value="1.15" /></label>
+    <label>Char <span class="val" id="vChar">0.65</span><input type="range" id="char" min="0" max="1" step="0.05" value="0.65" /></label>
+    <label>Fissure <span class="val" id="vFissure">0.10</span><input type="range" id="fissure" min="0" max="1" step="0.02" value="0.10" /></label>
+    <label>Scorch <span class="val" id="vScorch">0.00</span><input type="range" id="scorch" min="0" max="1.4" step="0.05" value="0.00" /></label>
+    <label>Faster &rarr; <span class="val" id="vSpeed">1.7&times;</span><input type="range" id="speed" min="0.2" max="3" step="0.1" value="1.7" /></label>
     <div class="row"><input type="checkbox" id="smoke" /> <label for="smoke" style="margin:0">Smoke</label></div>
-    <small>Heat wanders on two unsynced sines, so nothing sweeps on a beat. Embers creep along the fissures. <a href="hero-lab.html">Gold lab</a></small>
+    <small>Embers cover the whole mark; clustering comes from a drifting noise field, not from where they sit. Fissure at 0 hides the cracks entirely. <a href="hero-lab.html">Gold lab</a></small>
   </div>
 
   <script>window.__MARK_D__ = "M556,38.73s63.54,65.2,66.73,78.82c6.09,25.96-44.73,238.45-44.73,238.45l149.91-132.73,278.81,300.63-50,46.82-168.73-166.73-42.55,34.36,167.1,173-44.64,40.82-167.73-171.18-45.27,38.55,166.82,177.09-110.28,101.72-55.54-56.91c-3.05-28.63,4.57-32.14-12.18-59.06-24.81-39.87-59.39-53.21-72-43.66s2.82,49.27,2.82,49.27c0,0,49.73,79.33,60.71,166-.39,18.9-22.09,34.91-22.09,34.91l-91.73,85.64-281-302.28,141.37-185.27-206.37,115.36-104.7-113.07L556,38.73ZM526.33,214.11l-50.66,224.22c-9.12-9.33-51-54.11-51-54.11l-178.89,82.11,280.55-252.22ZM494,465.44l46.89,42.23-158.22,113.66,111.33-155.89ZM470,679.89l16.78-7.56s1.45,38.42,16.66,55.67c1.05,1.19,2.39,2.49,3.76,4.08,14.85,17.31,41.56,60.57,39.8,88.92-.77,12.43-7.78,15.89-7.78,15.89-23.3,19.18-70.26-31.18-79-54.89-9.73-26.4-9.04-29.49-.11-50.78,3.08-7.33-25-30.11-25-30.11l34.89-21.22Z";</script>
@@ -120,6 +121,7 @@
       bind('ember', '--ember', function (v) { return (+v).toFixed(2); });
       bind('grain', '--grain', function (v) { return (+v).toFixed(2); });
       bind('char', '--char', function (v) { return (+v).toFixed(2); });
+      bind('fissure', '--fissure', function (v) { return (+v).toFixed(2); });
       bind('scorch', '--scorch', function (v) { return (+v).toFixed(2); });
       bind('speed', '--speed', function (v) { return (+v).toFixed(1) + '\u00d7'; });
       document.getElementById('smoke').addEventListener('change', function (e) {
@@ -128,8 +130,8 @@
     })();
   </script>
   <script>
-/* Smoldering brand burn. Particle sim, no rotation: heat wanders and dies the
-   way it does in a burned log, creeping along fissures rather than sweeping. */
+/* Smouldering brand burn. Canvas particle sim, no rotation: heat wanders on a
+   drifting noise field and dies back the way it does in a burned log. */
 (function () {
   var D = window.__MARK_D__;
   var VB = 1075, VBH = 1007;
@@ -138,7 +140,6 @@
   var cv = document.getElementById('burn');
   var ctx = cv.getContext('2d');
 
-  // Seeded, so the crack pattern is the same artifact every reload.
   function mulberry32(a) {
     return function () {
       a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -149,27 +150,42 @@
   }
 
   var W = 0, H = 0, S = 1, dpr = 1;
-  var markPath = null, cracks = [], embers = [], smoke = [], grainCv = null, scorchCv = null;
+  var markPath = null, cracks = [], embers = [], smoke = [];
+  var grainCv = null, scorchCv = null, sprites = [];
 
   function val(n) { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(n)) || 0; }
 
-  /* Two incommensurate sines per axis: wanders smoothly, never repeats on a
-     beat you can count. This is what replaces the cardinal rotation. */
-  function heatCentre(t) {
-    return {
-      x: 0.5 + 0.26 * Math.sin(t * 0.098) + 0.17 * Math.sin(t * 0.0413 + 1.7),
-      y: 0.5 + 0.24 * Math.sin(t * 0.0731 + 2.4) + 0.19 * Math.sin(t * 0.0319 + 0.6)
-    };
+  /* ── VALUE NOISE ──
+     Heat is a field, not a spotlight. Two octaves drifting in different
+     directions give clusters that form and dissolve everywhere at once,
+     instead of one bright region sweeping across the mark. */
+  var NG = 32, lat = null;
+  function buildLattice(rng) {
+    lat = new Float32Array(NG * NG);
+    for (var i = 0; i < NG * NG; i++) lat[i] = rng();
+  }
+  function L(i, j) { return lat[(((j % NG) + NG) % NG) * NG + (((i % NG) + NG) % NG)]; }
+  function noise2(x, y) {
+    var xi = Math.floor(x), yi = Math.floor(y);
+    var xf = x - xi, yf = y - yi;
+    var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+    var a = L(xi, yi), b = L(xi + 1, yi), c = L(xi, yi + 1), d = L(xi + 1, yi + 1);
+    var top = a + (b - a) * u, bot = c + (d - c) * u;
+    return top + (bot - top) * v;
+  }
+  function heatAt(x, y, t) {
+    var n1 = noise2(x * 0.0075 + t * 0.040, y * 0.0075 - t * 0.026);
+    var n2 = noise2(x * 0.0190 - t * 0.029, y * 0.0190 + t * 0.034);
+    return n1 * 0.63 + n2 * 0.37;
   }
 
   function inMark(x, y) { return ctx.isPointInPath(markPath, x, y, 'evenodd'); }
 
-  /* Cracks branch out from seeds and wander, stopping at the contour. Charcoal
-     fissures, not a grid. */
+  /* Fissures are kept as structure and drawn barely at all. Rendered with a
+     pale lip they read as twigs, which broke the illusion entirely. */
   function growCracks(rng) {
     cracks = [];
-    var seeds = 44, i;
-    for (i = 0; i < seeds; i++) {
+    for (var i = 0; i < 44; i++) {
       var sx, sy, tries = 0;
       do { sx = rng() * W; sy = rng() * H; tries++; } while (!inMark(sx, sy) && tries < 400);
       if (tries >= 400) continue;
@@ -181,8 +197,7 @@
       var step = W * 0.019;
       for (var s = 0; s < steps; s++) {
         if (rng() < 0.16) dir += (rng() - 0.5) * 1.9; else dir += (rng() - 0.5) * 0.22;
-        x += Math.cos(dir) * step;
-        y += Math.sin(dir) * step;
+        x += Math.cos(dir) * step; y += Math.sin(dir) * step;
         if (!inMark(x, y)) break;
         pts.push([x, y]);
         if (depth < 4 && rng() < 0.085) walk(x, y, dir + (rng() < 0.5 ? 0.9 : -0.9), depth + 1, rng);
@@ -191,70 +206,78 @@
     }
   }
 
-  /* Embers live ON the cracks, tiny and many. Each holds a heat phase and
-     creeps a little along its fissure, the way a coal spreads. */
+  /* ── EMBER FIELD ──
+     Jittered grid across the whole mark, so coverage is even like a texture.
+     Clustering comes from the noise field at draw time, not from where the
+     particles sit. Seeding them along cracks is what produced constellations. */
   function seedEmbers(rng) {
     embers = [];
-    for (var c = 0; c < cracks.length; c++) {
-      var pts = cracks[c].pts;
-      var n = Math.max(3, Math.floor(pts.length * 0.62));
-      for (var i = 0; i < n; i++) {
-        var idx = rng() * (pts.length - 1);
+    var cell = Math.max(7, Math.round(W / 46));
+    for (var gy = 0; gy < H; gy += cell) {
+      for (var gx = 0; gx < W; gx += cell) {
+        var x = gx + rng() * cell, y = gy + rng() * cell;
+        if (!inMark(x, y)) continue;
         embers.push({
-          c: c, idx: idx,
-          drift: (rng() - 0.5) * 0.011,
+          x: x, y: y,
           phase: rng() * Math.PI * 2,
-          rate: 0.32 + rng() * 1.5,
-          size: 0.5 + rng() * 1.7,
-          bias: 0.35 + rng() * 0.65
+          rate: 0.5 + rng() * 2.6,
+          size: 0.55 + rng() * 1.5,
+          bias: 0.45 + rng() * 0.55,
+          sprite: (rng() * sprites.length) | 0
         });
       }
     }
   }
 
-  /* Ash and sand: thousands of specks, drawn once to an offscreen layer. This
-     is the granularity the gradient version could not produce. */
+  /* Pre-baked sprites: hundreds of createRadialGradient calls per frame would
+     not hold 60fps, drawImage does. */
+  function bakeSprites() {
+    sprites = [];
+    var ramps = [
+      [[0, 'rgba(255,240,205,1)'], [0.14, 'rgba(255,170,60,0.85)'], [0.42, 'rgba(226,96,26,0.28)'], [1, 'rgba(192,57,43,0)']],
+      [[0, 'rgba(255,215,150,0.95)'], [0.16, 'rgba(240,120,30,0.7)'], [0.48, 'rgba(176,48,32,0.2)'], [1, 'rgba(150,40,28,0)']],
+      [[0, 'rgba(255,190,110,0.85)'], [0.2, 'rgba(205,80,24,0.55)'], [0.55, 'rgba(140,38,24,0.14)'], [1, 'rgba(120,32,22,0)']]
+    ];
+    for (var i = 0; i < ramps.length; i++) {
+      var c = document.createElement('canvas');
+      var R = 48; c.width = c.height = R * 2;
+      var g2 = c.getContext('2d');
+      var gr = g2.createRadialGradient(R, R, 0, R, R, R);
+      for (var k = 0; k < ramps[i].length; k++) gr.addColorStop(ramps[i][k][0], ramps[i][k][1]);
+      g2.fillStyle = gr; g2.fillRect(0, 0, R * 2, R * 2);
+      sprites.push(c);
+    }
+  }
+
   function bakeGrain(rng) {
     grainCv = document.createElement('canvas');
     grainCv.width = W; grainCv.height = H;
     var g = grainCv.getContext('2d');
-    var n = Math.floor(W * H / 42);
+    var n = Math.floor(W * H / 38);
     for (var i = 0; i < n; i++) {
       var x = rng() * W, y = rng() * H;
       if (!inMark(x, y)) continue;
-      var r = rng();
-      var v, a;
-      if (r < 0.55) { v = 28 + rng() * 30; a = 0.5 + rng() * 0.5; }        // soot
-      else if (r < 0.85) { v = 92 + rng() * 60; a = 0.16 + rng() * 0.3; }   // ash
-      else { v = 150 + rng() * 70; a = 0.10 + rng() * 0.22; }               // pale sand
+      var r = rng(), v, a;
+      if (r < 0.55) { v = 28 + rng() * 30; a = 0.5 + rng() * 0.5; }
+      else if (r < 0.85) { v = 92 + rng() * 60; a = 0.16 + rng() * 0.3; }
+      else { v = 150 + rng() * 70; a = 0.10 + rng() * 0.22; }
       var warm = rng() < 0.3 ? 12 : 0;
-      g.fillStyle = 'rgba(' + Math.floor(v + warm) + ',' + Math.floor(v) + ',' + Math.floor(v * 0.9) + ',' + a.toFixed(3) + ')';
       var sz = rng() < 0.12 ? 2 : 1;
+      g.fillStyle = 'rgba(' + ((v + warm) | 0) + ',' + (v | 0) + ',' + ((v * 0.9) | 0) + ',' + a.toFixed(3) + ')';
       g.fillRect(x | 0, y | 0, sz, sz);
     }
   }
 
-  /* Scorch bleeds past the iron. Baked once: it never changes. */
   function bakeScorch() {
     scorchCv = document.createElement('canvas');
     scorchCv.width = W; scorchCv.height = H;
     var s = scorchCv.getContext('2d');
     var passes = [[W * 0.055, 'rgba(62,42,24,0.55)'], [W * 0.026, 'rgba(90,59,30,0.5)'], [W * 0.009, 'rgba(122,74,30,0.34)']];
     for (var i = 0; i < passes.length; i++) {
-      s.save();
-      s.shadowColor = passes[i][1];
-      s.shadowBlur = passes[i][0];
-      s.fillStyle = passes[i][1];
+      s.save(); s.shadowColor = passes[i][1]; s.shadowBlur = passes[i][0]; s.fillStyle = passes[i][1];
       for (var k = 0; k < 3; k++) s.fill(markPath, 'evenodd');
       s.restore();
     }
-  }
-
-  function crackPoint(c, idx) {
-    var pts = cracks[c].pts;
-    var i = Math.max(0, Math.min(pts.length - 2, Math.floor(idx)));
-    var f = idx - i;
-    return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f];
   }
 
   function resize() {
@@ -270,7 +293,9 @@
     markPath = new Path2D();
     markPath.addPath(base, new DOMMatrix().scaleSelf(S, H / VBH));
 
+    bakeSprites();
     var rng = mulberry32(20260918);
+    buildLattice(mulberry32(4417));
     growCracks(rng);
     seedEmbers(rng);
     bakeGrain(mulberry32(7731));
@@ -278,127 +303,105 @@
     smoke = [];
   }
 
-  var t0 = performance.now(), last = t0;
+  var t0 = performance.now(), last = t0, raf = null;
+
   function frame(now) {
     var speed = val('--speed') || 1;
     var dt = Math.min(0.05, (now - last) / 1000); last = now;
     var t = (now - t0) / 1000 * speed;
 
-    var emberAmt = val('--ember'), scorchAmt = val('--scorch'), charAmt = val('--char'), grainAmt = val('--grain');
+    var emberAmt = val('--ember'), scorchAmt = val('--scorch'),
+        charAmt = val('--char'), grainAmt = val('--grain'), fissure = val('--fissure');
     var smokeOn = document.body.classList.contains('show-smoke');
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    // scorch first, it sits under and around everything
-    ctx.globalAlpha = scorchAmt;
-    ctx.drawImage(scorchCv, 0, 0);
-    ctx.globalAlpha = 1;
-
-    var hc = heatCentre(t);
-    var hx = hc.x * W, hy = hc.y * H, hr = W * 0.62;
+    if (scorchAmt > 0.001) { ctx.globalAlpha = scorchAmt; ctx.drawImage(scorchCv, 0, 0); ctx.globalAlpha = 1; }
 
     ctx.save();
     ctx.clip(markPath, 'evenodd');
 
-    // char body
     ctx.globalAlpha = charAmt;
     ctx.fillStyle = '#0A0807';
     ctx.fillRect(0, 0, W, H);
     ctx.globalAlpha = 1;
 
-    // ash + sand grain
     ctx.globalAlpha = grainAmt;
     ctx.drawImage(grainCv, 0, 0);
     ctx.globalAlpha = 1;
 
-    // cracked charcoal: dark fissure with a pale ash lip
-    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    for (var c = 0; c < cracks.length; c++) {
-      var pts = cracks[c].pts, n = pts.length - 1;
-      for (var i = 0; i < n; i++) {
-        var taper = Math.sin(Math.PI * ((i + 0.5) / n));
-        var bw = cracks[c].w * S * (0.35 + 0.65 * taper);
-        ctx.beginPath();
-        ctx.moveTo(pts[i][0], pts[i][1]);
-        ctx.lineTo(pts[i + 1][0], pts[i + 1][1]);
-        ctx.strokeStyle = 'rgba(146,132,118,' + (0.075 * taper * charAmt).toFixed(3) + ')';
-        ctx.lineWidth = bw * 3.1 + 1.1;
-        ctx.stroke();
-        ctx.strokeStyle = 'rgba(0,0,0,' + (0.9 * charAmt).toFixed(3) + ')';
-        ctx.lineWidth = Math.max(0.6, bw * 1.25);
-        ctx.stroke();
+    // Fissures: dark only, no pale lip. Depth in the surface, not drawn lines.
+    if (fissure > 0.002) {
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (var c = 0; c < cracks.length; c++) {
+        var pts = cracks[c].pts, nn = pts.length - 1;
+        for (var i = 0; i < nn; i++) {
+          var taper = Math.sin(Math.PI * ((i + 0.5) / nn));
+          ctx.beginPath();
+          ctx.moveTo(pts[i][0], pts[i][1]);
+          ctx.lineTo(pts[i + 1][0], pts[i + 1][1]);
+          ctx.strokeStyle = 'rgba(0,0,0,' + (0.85 * fissure * taper).toFixed(3) + ')';
+          ctx.lineWidth = Math.max(0.6, cracks[c].w * S * (0.3 + 0.7 * taper) * 1.2);
+          ctx.stroke();
+        }
       }
     }
 
-    // embers, additive so overlaps read as hotter
+    // Embers: even coverage, clustered by the noise field.
     ctx.globalCompositeOperation = 'lighter';
     for (var e = 0; e < embers.length; e++) {
       var em = embers[e];
-      em.idx += em.drift * speed;
-      var lim = cracks[em.c].pts.length - 1.001;
-      if (em.idx < 0 || em.idx > lim) { em.drift *= -1; em.idx = Math.max(0, Math.min(lim, em.idx)); }
-      var p = crackPoint(em.c, em.idx);
-      var d = Math.hypot(p[0] - hx, p[1] - hy);
-      var zone = Math.max(0, 1 - d / hr);
+      var field = heatAt(em.x, em.y, t);
       var beat = 0.5 + 0.5 * Math.sin(t * em.rate + em.phase);
-      var heat = Math.pow(zone, 0.8) * (0.34 + 0.66 * beat) * em.bias * emberAmt;
+      var heat = Math.pow(field, 2.35) * (0.30 + 0.70 * beat) * em.bias * emberAmt;
       if (heat <= 0.012) continue;
-      var rad = em.size * S * (1.5 + heat * 2.6);
-      var g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], rad * 4.5);
-      g.addColorStop(0, 'rgba(255,214,150,' + (heat * 0.95).toFixed(3) + ')');
-      g.addColorStop(0.18, 'rgba(255,122,26,' + (heat * 0.55).toFixed(3) + ')');
-      g.addColorStop(0.5, 'rgba(192,57,43,' + (heat * 0.16).toFixed(3) + ')');
-      g.addColorStop(1, 'rgba(192,57,43,0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(p[0], p[1], rad * 4.5, 0, 6.2832); ctx.fill();
-      // the hot core itself stays a speck
-      ctx.fillStyle = 'rgba(255,236,196,' + (heat * 0.9).toFixed(3) + ')';
-      ctx.fillRect(p[0] - rad * 0.28, p[1] - rad * 0.28, Math.max(1, rad * 0.56), Math.max(1, rad * 0.56));
-
-      if (smokeOn && heat > 0.55 && Math.random() < 0.035 && smoke.length < 460) {
-        smoke.push({ x: p[0], y: p[1], vx: (Math.random() - 0.5) * 6, vy: -14 - Math.random() * 20,
+      var rad = em.size * S * (2.6 + heat * 5.2) * 2.2;
+      ctx.globalAlpha = Math.min(1, heat);
+      ctx.drawImage(sprites[em.sprite], em.x - rad, em.y - rad, rad * 2, rad * 2);
+      if (heat > 0.42) {
+        ctx.globalAlpha = Math.min(1, (heat - 0.42) * 1.7);
+        ctx.fillStyle = 'rgba(255,241,210,1)';
+        var cs = Math.max(1, em.size * S * 0.95);
+        ctx.fillRect(em.x - cs * 0.5, em.y - cs * 0.5, cs, cs);
+      }
+      if (smokeOn && heat > 0.62 && Math.random() < 0.008 && smoke.length < 420) {
+        smoke.push({ x: em.x, y: em.y, vx: (Math.random() - 0.5) * 6, vy: -14 - Math.random() * 20,
                      life: 0, max: 3.2 + Math.random() * 4.5, sz: (0.5 + Math.random() * 1.7) * S, seed: Math.random() * 100 });
       }
     }
+    ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
     ctx.restore();
 
-    // smoke rises past the contour, so it is drawn outside the clip
     if (smokeOn) {
       for (var s2 = smoke.length - 1; s2 >= 0; s2--) {
-        var sp = smoke[s2];
-        sp.life += dt * speed;
-        if (sp.life > sp.max) { smoke.splice(s2, 1); continue; }
-        var k = sp.life / sp.max;
-        sp.x += (sp.vx + Math.sin(t * 0.7 + sp.seed) * 11) * dt * speed;
-        sp.y += sp.vy * dt * speed;
-        sp.vy *= 0.995;
-        var a = Math.sin(k * Math.PI) * 0.13;
-        ctx.fillStyle = 'rgba(168,162,156,' + a.toFixed(3) + ')';
-        ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.sz * (1 + k * 3.4), 0, 6.2832); ctx.fill();
+        var sp2 = smoke[s2];
+        sp2.life += dt * speed;
+        if (sp2.life > sp2.max) { smoke.splice(s2, 1); continue; }
+        var k = sp2.life / sp2.max;
+        sp2.x += (sp2.vx + Math.sin(t * 0.7 + sp2.seed) * 11) * dt * speed;
+        sp2.y += sp2.vy * dt * speed;
+        sp2.vy *= 0.995;
+        ctx.fillStyle = 'rgba(168,162,156,' + (Math.sin(k * Math.PI) * 0.13).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(sp2.x, sp2.y, sp2.sz * (1 + k * 3.4), 0, 6.2832); ctx.fill();
       }
     } else if (smoke.length) { smoke.length = 0; }
 
-    // contact edge, coolest where the heat centre is furthest
     ctx.save();
-    ctx.strokeStyle = 'rgba(201,98,31,' + (0.30 + 0.34 * (0.5 + 0.5 * Math.sin(t * 0.21))).toFixed(3) + ')';
+    ctx.strokeStyle = 'rgba(201,98,31,' + (0.22 + 0.26 * (0.5 + 0.5 * Math.sin(t * 0.21))).toFixed(3) + ')';
     ctx.lineWidth = Math.max(1, 1.5 * dpr);
-    ctx.stroke(markPath);
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    ctx.lineWidth = Math.max(1, 2.6 * dpr);
     ctx.stroke(markPath);
     ctx.restore();
 
     raf = requestAnimationFrame(frame);
   }
 
-  var raf = null;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   function start() {
-    if (raf) cancelAnimationFrame(raf);
-    if (reduce.matches) { last = performance.now(); frame(performance.now()); cancelAnimationFrame(raf); raf = null; return; }
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
     last = performance.now();
+    if (reduce.matches) { frame(performance.now()); if (raf) { cancelAnimationFrame(raf); raf = null; } return; }
     raf = requestAnimationFrame(frame);
   }
 
@@ -407,6 +410,7 @@
   resize();
   start();
   window.__burnReady = true;
+  window.__emberCount = function () { return embers.length; };
 })();
 
   </script>
